@@ -176,15 +176,16 @@ class WGANTrainer():
 
         # 2.1) critic from real images
         loss_real = self.model_disc(real_images).mean() # Average over the batch
-        loss_real.backward() # Backpropagate on the real loss
+        # loss_real.backward() # Backpropagate on the real loss
 
         # 2.2) critic from fake images
         fake_images = self.model_gen(z) # generate fake images
         loss_fake = self.model_disc(fake_images).mean() # Average over the batch
-        loss_fake.backward() # Backpropagate on the fake loss
+        # loss_fake.backward() # Backpropagate on the fake loss
 
         # 2.3) compute wasserstein loss (Algorithm 1 from https://arxiv.org/pdf/1701.07875)
         loss_disc = - loss_real + loss_fake
+        loss_disc.backward()
 
         # 3) update the discriminator weights and clamp them
         self.optimizer_disc.step()
