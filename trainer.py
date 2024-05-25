@@ -184,7 +184,7 @@ class WGANTrainer():
         # loss_fake.backward() # Backpropagate on the fake loss
 
         # 2.3) compute wasserstein loss (Algorithm 1 from https://arxiv.org/pdf/1701.07875)
-        loss_disc = - loss_real + loss_fake
+        loss_disc = - loss_real + loss_fake # maximizing loss_real - loss fake <=> minimizing -loss_real + loss_fake
         loss_disc.backward()
 
         # 3) update the discriminator weights and clamp them
